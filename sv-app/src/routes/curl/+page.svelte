@@ -4,7 +4,11 @@
 	import PropValueTable from "../../components/PropValueTable.svelte";
 	import TextArea from "../../components/TextArea.svelte";
 
-	let curlCommand = $state('');
+	let curlCommand = $state(`curl \\
+	'https://example.com/api?x=1' \\
+	-H "X-Test: test" \\
+	--cookie 'a=1; b=2' \\
+	--data '{"foo":"bar"}`);
 	let pythonCode = $state('');
 
 	let headers: PropVal[] = $state([]);
@@ -23,7 +27,7 @@
 <section class="max-w-3xl mx-auto p-4 pb-36">
 	<TextArea bind:value={curlCommand} submitText="Convert" onSubmit={onclick} />
 
-	<footer class="px-4 py-4 bg-base-200">
+	<footer class="py-4 space-y-4">
 		<pre class="text-wrap break-words">{pythonCode}</pre>
 
 		<PropValueTable header="Headers" records={headers} />

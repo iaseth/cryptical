@@ -15,12 +15,14 @@
 </script>
 
 {#if records.length}
-	<button class="mx-auto block px-4 py-4 text-center" {onclick}>
-		<h3 class="text-xl font-bold">{header}</h3>
+<section class="space-y-1">
+	<header class="bg-base-300 px-4 py-4 text-center rounded-lg grid grid-cols-3 items-center">
+		<h4 class="font-bold">{header}</h4>
 		<p class="text-sm">{records.length} records</p>
-	</button>
+		<button {onclick} class="btn">{hidden ? "Show" : "Hide"}</button>
+	</header>
 
-	<table class="table" {hidden}>
+	<table class="table bg-base-300" {hidden}>
 		<thead>
 			<tr>
 				<th></th>
@@ -43,4 +45,5 @@
 			{/each}
 		</tbody>
 	</table>
+</section>
 {/if}
