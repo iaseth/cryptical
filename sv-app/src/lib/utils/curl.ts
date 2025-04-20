@@ -5,11 +5,51 @@ export type CurlParsed = {
 	normalized: string;
 	args: string[];
 	url: string;
+	baseUrl: string;
 	params: PropVal[];
 	headers: PropVal[];
 	cookies: PropVal[];
 	data?: string;
 };
+
+function shellSplit(input: string): string[] {
+	const args: string[] = [];
+	let current = '';
+	let quote: '"' | "'" | null = null;
+	let escaped = false;
+
+	for (let i = 0; i < input.length; i++) {
+		const c = input[i];
+
+		if (escaped) {
+			current += c;
+			escaped = false;
+		} else if (c === '\\') {
+			escaped = true;
+		} else if (quote) {
+			if (c === quote) {
+				quote = null;
+			} else {
+				current += c;
+			}
+		} else if (c === '"' || c === "'") {
+			quote = c;
+		} else if (/\s/.test(c)) {
+			if (current) {
+				args.push(current);
+				current = '';
+			}
+		} else {
+			current += c;
+		}
+	}
+
+	if (current) {
+		args.push(current);
+	}
+
+	return args;
+}
 
 export function parseCurl(curl: string): CurlParsed {
 	const normalized = curl
@@ -22,24 +62,14 @@ export function parseCurl(curl: string): CurlParsed {
 		.trim();
 
 	// Tokenize like shell
-	const args: string[] = [];
-	const regex = /"([^"\\]*(\\.[^"\\]*)*)"|'([^'\\]*(\\.[^'\\]*)*)'|[^\s"']+/g;
-	let match: RegExpExecArray | null;
-	while ((match = regex.exec(normalized)) !== null) {
-		if (match[1]) {
-			args.push(match[1].replace(/\\"/g, '"'));
-		} else if (match[3]) {
-			args.push(match[3].replace(/\\'/g, "'"));
-		} else {
-			args.push(match[0]);
-		}
-	}
+	const args: string[] = shellSplit(normalized);
 
 	const headers: PropVal[] = [];
 	const cookies: PropVal[] = [];
 	const params: PropVal[] = [];
 	let data: string | undefined;
 	let url: string = '';
+	let baseUrl: string = '';
 
 	for (let i = 0; i < args.length; i++) {
 		const arg = args[i];
@@ -71,6 +101,7 @@ export function parseCurl(curl: string): CurlParsed {
 	if (url) {
 		try {
 			const parsedUrl = new URL(url);
+			baseUrl = `${parsedUrl.origin}${parsedUrl.pathname}`;
 			parsedUrl.searchParams.forEach((value, key) => {
 				params.push({ prop: key, value });
 			});
@@ -79,5 +110,5 @@ export function parseCurl(curl: string): CurlParsed {
 		}
 	}
 
-	return { normalized, args, url, params, headers, cookies, data };
+	return { normalized, args, url, baseUrl, params, headers, cookies, data };
 }

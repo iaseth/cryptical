@@ -12,6 +12,10 @@
 	function onclick () {
 		hidden = !hidden;
 	}
+
+	function copyToClipboard () {
+		//
+	}
 </script>
 
 {#if records.length}
@@ -19,7 +23,11 @@
 	<header class="bg-base-300 px-4 py-4 text-center rounded-lg grid grid-cols-3 items-center">
 		<h4 class="font-bold">{header}</h4>
 		<p class="text-sm">{records.length} records</p>
-		<button {onclick} class="btn">{hidden ? "Show" : "Hide"}</button>
+
+		<div>
+			<button {onclick} class="btn btn-primary">{hidden ? "Show" : "Hide"}</button>
+			<button onclick={copyToClipboard} class="btn btn-secondary">Copy</button>
+		</div>
 	</header>
 
 	<table class="table bg-base-300" {hidden}>
