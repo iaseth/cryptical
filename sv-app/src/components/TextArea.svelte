@@ -24,7 +24,7 @@
 	}
 </script>
 
-<section class="py-16 space-y-4 mb-6">
+<section class="py-16 space-y-4">
 	<textarea class="textarea textarea-primary font-mono block w-full bg-base-200 resize-none"
 		bind:value={value} bind:this={me} rows=10 spellcheck="false"></textarea>
 	

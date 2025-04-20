@@ -1,6 +1,7 @@
 
 <script lang="ts">
-	import { parseCurl, type PropVal } from "$lib";
+	import { parseCurl, type CurlParsed, type PropVal } from "$lib";
+	import mustache from "mustache";
 	import PropValueTable from "../../components/PropValueTable.svelte";
 	import TextArea from "../../components/TextArea.svelte";
 
@@ -9,7 +10,7 @@
 	-H "X-Test: test" \\
 	--cookie 'a=1; b=2' \\
 	--data '{"foo":"bar"}`);
-	let pythonCode = $state('');
+	let generatedCode = $state('');
 	let url = $state('');
 	let baseUrl = $state('');
 	let data = $state('');
@@ -22,6 +23,35 @@
 		const stuff = parseCurl(curlCommand);
 		({ url, baseUrl, params, headers, cookies } = stuff);
 		data = stuff.data || data;
+		renderCode(stuff);
+	}
+
+	function renderCode (stuff: CurlParsed) {
+		fetch('templates/mustache/python-requests.mustache').then(res => res.text()).then(template => {
+			const method = stuff.args.includes('-X') || stuff.args.includes('--request')
+				? stuff.args[stuff.args.findIndex(a => a === '-X' || a === '--request') + 1].toUpperCase()
+				: stuff.data ? 'POST' : 'GET';
+			const formatDict = (items: { prop: string; value: string }[]): string =>
+				items.length
+					? `{\n${items.map(({ prop, value }) => `\t"${prop}": "${value}"`).join(',\n')}\n}`
+					: '{}';
+
+			const rendered = mustache.render(template, {
+				url: baseUrl,
+				method: method.toLowerCase(),
+				hasParams: params.length > 0,
+				params: formatDict(params),
+				hasHeaders: headers.length > 0,
+				headers: formatDict(headers),
+				hasCookies: cookies.length > 0,
+				cookies: formatDict(cookies),
+				hasData: !!data,
+				data: data?.replace(/"/g, '\\"') ?? ''
+			});
+
+			generatedCode = rendered;
+			return rendered;
+		});
 	}
 </script>
 
@@ -29,7 +59,9 @@
 	<TextArea bind:value={curlCommand} submitText="Convert" onSubmit={onclick} />
 
 	<footer class="py-4 space-y-6">
-		<pre class="text-wrap break-words">{pythonCode}</pre>
+		<section class="bg-base-300 p-4">
+			<pre class="text-wrap break-words">{generatedCode}</pre>
+		</section>
 
 		<PropValueTable header="Basics" records={[
 			{ prop: 'Base URL', value: baseUrl },

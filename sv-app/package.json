@@ -38,6 +38,8 @@
 		"vite": "^6.2.5"
 	},
 	"dependencies": {
-		"jwt-decode": "^4.0.0"
+		"@types/mustache": "^4.2.5",
+		"jwt-decode": "^4.0.0",
+		"mustache": "^4.2.0"
 	}
 }
