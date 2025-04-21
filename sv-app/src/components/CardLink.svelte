@@ -2,15 +2,19 @@
 <script lang="ts">
 	interface Props {
 		href: string,
-		title: string
+		title: string,
+		description?: string
 	}
-	let { href, title }: Props = $props();
+	let { href, title, description }: Props = $props();
 </script>
 
 <div class="card bg-base-200 shadow-sm">
 	<div class="card-body">
 		<h2 class="card-title">{title}</h2>
-		<p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+		{#if description}
+			<p>{description}</p>
+		{/if}
+
 		<div class="justify-end card-actions">
 			<a {href} class="btn btn-primary">Open</a>
 		</div>
