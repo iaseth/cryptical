@@ -3,9 +3,9 @@
 		"title": "Utils",
 		"apps": [
 			{
-				"href": "/apps/base64",
-				"title": "Base64",
-				"description": "See how Base64 encoding works."
+				"href": "/apps/base64-encoder",
+				"title": "Base64 Encoder",
+				"description": "Understand how Base64 encoding works."
 			},
 			{
 				"href": "/apps/curl",
