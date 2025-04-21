@@ -8,6 +8,11 @@
 				"description": "Understand how Base64 encoding works."
 			},
 			{
+				"href": "/apps/base64-decoder",
+				"title": "Base64 Decoder",
+				"description": "Understand how Base64 decoding works."
+			},
+			{
 				"href": "/apps/curl",
 				"title": "cURL",
 				"description": "Convert cURL commands to Code."
