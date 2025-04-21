@@ -12,8 +12,8 @@
 
 <section class={["bg-base-300 px-4 py-4 space-y-1 rounded-lg", className]}>
 	{#if title}
-		<header class="prose font-mono">
-			<h4 class="flex">
+		<header class="font-mono">
+			<h4 class="flex font-bold">
 				<span class="text-primary">{title}</span>
 				<span class="grow"></span>
 				<span class="text-secondary">{code.length}</span>
