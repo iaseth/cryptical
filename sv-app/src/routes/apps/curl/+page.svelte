@@ -47,7 +47,7 @@
 
 <section class="container p-4 pb-36">
 	<TextArea bind:value={curlCommand}
-		title="Curl Converter" key="curl-command-input"
+		title="Curl Command" key="curl-command-input"
 		submitText="Convert" onSubmit={onclick} />
 
 	<footer class="py-4 space-y-6">

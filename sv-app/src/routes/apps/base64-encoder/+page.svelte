@@ -35,7 +35,8 @@
 
 <section class="container p-4 overflow-x-hidden space-y-4">
 	<TextArea bind:value={inputText} key="base64-encoder-input"
-		submitText="Encode" onSubmit={onclick} rows={5} />
+		submitText="Encode" onSubmit={onclick}
+		rows={5} title="Enter Text" />
 
 	{#if base64encoded}
 		<section class="grid md:grid-cols-2 gap-4">

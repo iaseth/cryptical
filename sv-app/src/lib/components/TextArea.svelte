@@ -43,27 +43,27 @@
 	}
 </script>
 
-<section class="py-8 space-y-4">
-	<header class="flex gap-x-2 items-center">
-		{#if title}<label class="font-bold" for={textareaId}>{title}</label>{/if}
+<section class="py-4 space-y-4">
+	<header class="flex gap-x-2 items-end">
+		{#if title}<label class="font-bold text-sm px-3" for={textareaId}>{title}</label>{/if}
 		<div class="grow"></div>
 
 		{#if isEmpty}
-			<button class="btn btn-neutral" onclick={loadFromLS}>Load</button>
-			<button class="btn btn-neutral" onclick={pasteFromClipboard}>Paste</button>
+			<button class="btn btn-sm btn-neutral" onclick={loadFromLS}>Load</button>
+			<button class="btn btn-sm btn-neutral" onclick={pasteFromClipboard}>Paste</button>
 		{:else}
-			<button class="btn btn-neutral" onclick={() => value = ""}>Clear</button>
-			<button class="btn btn-neutral" onclick={copyToClipboard}>Copy</button>
-			<button class="btn btn-neutral" onclick={saveToLS}>Save</button>
+			<button class="btn btn-sm btn-neutral" onclick={() => value = ""}>Clear</button>
+			<button class="btn btn-sm btn-neutral" onclick={copyToClipboard}>Copy</button>
+			<button class="btn btn-sm btn-neutral" onclick={saveToLS}>Save</button>
 		{/if}
 	</header>
 
 	{#if rows > 1}
-		<textarea class="textarea textarea-primary font-mono block w-full bg-base-200 resize-none"
+		<textarea class="textarea textarea-primary font-mono block w-full bg-base-300 resize-none"
 			id={textareaId} bind:value={value} bind:this={me}
 			{rows} spellcheck="false"></textarea>
 	{:else}
-		<input class="input input-primary font-mono block w-full bg-base-200"
+		<input class="input input-primary font-mono block w-full bg-base-300"
 			id={textareaId} bind:value={value} bind:this={me}
 			spellcheck="false" />
 	{/if}

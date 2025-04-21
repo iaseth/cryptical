@@ -4,7 +4,7 @@
 	import TextArea from "$lib/components/TextArea.svelte";
 	import { SignJWT } from 'jose';
 
-	let payloadInput = $state('{"foo": "bar"}');
+	let payloadInput = $state('{\n\t"foo": "bar"\n}');
 	let secretInput = $state('Pass1234');
 	let jwtToken = $state('');
 
@@ -30,7 +30,7 @@
 <section class="container p-4 overflow-x-hidden space-y-4">
 	<section class="grid">
 		<TextArea bind:value={secretInput} key="jwt-encoder-input-secret" rows={1} title="Secret" />
-		<TextArea bind:value={payloadInput} key="jwt-encoder-input-payload" title="Payload"
+		<TextArea bind:value={payloadInput} key="jwt-encoder-input-payload" rows={5} title="Payload"
 			submitText="Encode" onSubmit={onclick} />
 	</section>
 

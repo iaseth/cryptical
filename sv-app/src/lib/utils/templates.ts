@@ -14,7 +14,7 @@ export async function getTemplate(path: string): Promise<Function> {
 		return cacheFound.template;
 	}
 
-	const res = await fetch(`templates/handlebars/${path}.hbs`);
+	const res = await fetch(`/templates/handlebars/${path}.hbs`);
 	const templateContent = await res.text();
 
 	const template = Handlebars.compile(templateContent);
