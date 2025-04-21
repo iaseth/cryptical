@@ -17,7 +17,7 @@
 	<a class={headerClass} href="https://github.com/iaseth">Author</a>
 </header>
 
-<main class="min-h-screen">
+<main class="min-h-screen pb-24">
 	{@render children()}
 </main>
 
