@@ -19,7 +19,7 @@
 		<h3>{section.title}</h3>
 	</header>
 
-	<section class="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+	<section class="grid gap-4 gap-y-6 sm:grid-cols-2 md:grid-cols-3">
 		{#each section.apps as app}
 			<AppLink {...app} />
 		{/each}

@@ -11,7 +11,7 @@
 		onSubmit?: () => void
 	}
 	let { value = $bindable(), title, rows=10, key, submitText="Submit", onSubmit }: Props = $props();
-	let me: HTMLTextAreaElement|null = $state(null);
+	let me: HTMLTextAreaElement|HTMLInputElement|null = $state(null);
 
 	let isEmpty = $derived(value === "");
 	const textareaId = `textarea-${key}`;
@@ -58,9 +58,15 @@
 		{/if}
 	</header>
 
-	<textarea class="textarea textarea-primary font-mono block w-full bg-base-200 resize-none"
-		id={textareaId} bind:value={value} bind:this={me}
-		{rows} spellcheck="false"></textarea>
+	{#if rows > 1}
+		<textarea class="textarea textarea-primary font-mono block w-full bg-base-200 resize-none"
+			id={textareaId} bind:value={value} bind:this={me}
+			{rows} spellcheck="false"></textarea>
+	{:else}
+		<input class="input input-primary font-mono block w-full bg-base-200"
+			id={textareaId} bind:value={value} bind:this={me}
+			spellcheck="false" />
+	{/if}
 
 	{#if onSubmit}
 		<footer>

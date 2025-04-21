@@ -3,14 +3,14 @@
 		"title": "Utils",
 		"apps": [
 			{
-				"href": "/apps/base64-encoder",
-				"title": "Base64 Encoder",
-				"description": "Understand how Base64 encoding works."
-			},
-			{
 				"href": "/apps/base64-decoder",
 				"title": "Base64 Decoder",
 				"description": "Understand how Base64 decoding works."
+			},
+			{
+				"href": "/apps/base64-encoder",
+				"title": "Base64 Encoder",
+				"description": "Understand how Base64 encoding works."
 			},
 			{
 				"href": "/apps/curl",
@@ -21,6 +21,11 @@
 				"href": "/apps/jwt-decoder",
 				"title": "JWT Decoder",
 				"description": "Decode JWT tokens and more."
+			},
+			{
+				"href": "/apps/jwt-encoder",
+				"title": "JWT Encoder",
+				"description": "Encode JWT tokens and more."
 			}
 		]
 	}
