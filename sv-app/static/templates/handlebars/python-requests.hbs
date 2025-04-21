@@ -1,30 +1,47 @@
 import requests
 
+
+session = requests.session()
+
 url = "{{ url }}"
 
 {{#if hasParams}}
 params = {{{ params }}}
+{{else}}
+# params = {}
 {{/if}}
 
 {{#if hasHeaders}}
 headers = {{{ headers }}}
+{{else}}
+# headers = {}
 {{/if}}
 
 {{#if hasCookies}}
 cookies = {{{ cookies }}}
+{{else}}
+# cookies = {}
 {{/if}}
 
 {{#if hasData}}
 data = """{{{ data }}}"""
+{{else}}
+# data = ""
 {{/if}}
 
-response = requests.{{method}}(
-		url,
-{{#if hasParams}}		params=params,{{/if}}
-{{#if hasHeaders}}		headers=headers,{{/if}}
-{{#if hasCookies}}		cookies=cookies,{{/if}}
-{{#if hasData}}		data=data,{{/if}}
-)
 
-print(response.status_code)
-print(response.text)
+def main():
+	response = session.{{method}}(
+		url,
+		{{#unless hasParams}}# {{/unless}}params=params,
+		{{#unless hasHeaders}}# {{/unless}}headers=headers,
+		{{#unless hasCookies}}# {{/unless}}cookies=cookies,
+		{{#unless hasData}}# {{/unless}}data=data,
+	)
+
+	print(response.status_code)
+	print(response.text)
+
+
+if __name__ == "__main__":
+	main()

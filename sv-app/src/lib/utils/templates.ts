@@ -1,4 +1,5 @@
 import Handlebars from "handlebars";
+import type { PropVal } from "./curl";
 
 interface TemplateCacheDS {
 	path: string,
@@ -22,7 +23,17 @@ export async function getTemplate(path: string): Promise<Function> {
 	return template;
 }
 
-export const formatDict = (items: { prop: string; value: string }[]): string =>
-	items.length
-		? `{\n${items.map(({ prop, value }) => `\t"${prop}": "${value}"`).join(',\n')}\n}`
-		: '{}';
+const escape = (s: string) =>
+	s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+
+export const formatDict = (items: PropVal[]): string => {
+	if (!items.length) return '{}';
+
+	const lines = items.map(({ prop, value }) => {
+		const escapedProp = escape(prop);
+		const escapedValue = escape(value);
+		return `\t"${escapedProp}": "${escapedValue}"`;
+	});
+
+	return `{\n${lines.join(',\n')}\n}`;
+};

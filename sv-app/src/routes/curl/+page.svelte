@@ -19,7 +19,6 @@
 
 	function renderCode () {
 		getTemplate('python-requests').then(template => {
-			console.log(template);
 			if (!parsed) return "";
 
 			const renderedCode = template({
