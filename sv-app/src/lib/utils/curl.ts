@@ -6,6 +6,7 @@ export type CurlParsed = {
 	args: string[];
 	url: string;
 	baseUrl: string;
+	method: string;
 	params: PropVal[];
 	headers: PropVal[];
 	cookies: PropVal[];
@@ -110,5 +111,14 @@ export function parseCurl(curl: string): CurlParsed {
 		}
 	}
 
-	return { normalized, args, url, baseUrl, params, headers, cookies, data };
+
+	const method = args.includes('-X') || args.includes('--request')
+		? args[args.findIndex(a => a === '-X' || a === '--request') + 1].toUpperCase()
+		: data ? 'POST' : 'GET';
+
+	return {
+		normalized, args,
+		url, baseUrl, method, params,
+		headers, cookies, data
+	};
 }

@@ -1,9 +1,8 @@
 
 <script lang="ts">
-	import { parseCurl, type CurlParsed, type PropVal } from "$lib";
+	import { formatDict, getTemplate, parseCurl, type CurlParsed, type PropVal } from "$lib";
 	import PropValueTable from "../../components/PropValueTable.svelte";
 	import TextArea from "../../components/TextArea.svelte";
-	import Handlebars from "handlebars";
 
 	let curlCommand = $state(`curl \\
 	'https://example.com/api?x=1' \\
@@ -11,43 +10,29 @@
 	--cookie 'a=1; b=2' \\
 	--data '{"foo":"bar"}`);
 	let generatedCode = $state('');
-	let url = $state('');
-	let baseUrl = $state('');
-	let data = $state('');
-
-	let headers: PropVal[] = $state([]);
-	let cookies: PropVal[] = $state([]);
-	let params: PropVal[] = $state([]);
+	let parsed: CurlParsed|null = $state(null);
 
 	function onclick () {
-		const stuff = parseCurl(curlCommand);
-		({ url, baseUrl, params, headers, cookies } = stuff);
-		data = stuff.data || data;
-		renderCode(stuff);
+		parsed = parseCurl(curlCommand);
+		renderCode();
 	}
 
-	function renderCode (stuff: CurlParsed) {
-		fetch('templates/handlebars/python-requests.hbs').then(res => res.text()).then(templateContent => {
-			const template = Handlebars.compile(templateContent);
-			const method = stuff.args.includes('-X') || stuff.args.includes('--request')
-				? stuff.args[stuff.args.findIndex(a => a === '-X' || a === '--request') + 1].toUpperCase()
-				: stuff.data ? 'POST' : 'GET';
-			const formatDict = (items: { prop: string; value: string }[]): string =>
-				items.length
-					? `{\n${items.map(({ prop, value }) => `\t"${prop}": "${value}"`).join(',\n')}\n}`
-					: '{}';
+	function renderCode () {
+		getTemplate('python-requests').then(template => {
+			console.log(template);
+			if (!parsed) return "";
 
 			const renderedCode = template({
-				url: baseUrl,
-				method: method.toLowerCase(),
-				hasParams: params.length > 0,
-				params: formatDict(params),
-				hasHeaders: headers.length > 0,
-				headers: formatDict(headers),
-				hasCookies: cookies.length > 0,
-				cookies: formatDict(cookies),
-				hasData: !!data,
-				data: data?.replace(/"/g, '\\"') ?? ''
+				url: parsed.baseUrl,
+				method: parsed.method.toLowerCase(),
+				hasParams: parsed.params.length > 0,
+				params: formatDict(parsed.params),
+				hasHeaders: parsed.headers.length > 0,
+				headers: formatDict(parsed.headers),
+				hasCookies: parsed.cookies.length > 0,
+				cookies: formatDict(parsed.cookies),
+				hasData: !!parsed.data,
+				data: parsed.data?.replace(/"/g, '\\"') ?? ''
 			});
 
 			generatedCode = renderedCode;
@@ -64,13 +49,16 @@
 			<pre class="text-wrap break-words">{generatedCode}</pre>
 		</section>
 
-		<PropValueTable header="Basics" records={[
-			{ prop: 'Base URL', value: baseUrl },
-			{ prop: 'URL', value: url },
-			{ prop: 'data', value: data },
-		]} />
-		<PropValueTable header="Params" records={params} />
-		<PropValueTable header="Headers" records={headers} />
-		<PropValueTable header="Cookies" records={cookies} />
+		{#if parsed}
+			<PropValueTable header="Basics" records={[
+				{ prop: 'Base URL', value: parsed.baseUrl },
+				{ prop: 'URL', value: parsed.url },
+				{ prop: 'data', value: parsed.data || "" },
+			]} />
+
+			<PropValueTable header="Params" records={parsed.params} />
+			<PropValueTable header="Headers" records={parsed.headers} />
+			<PropValueTable header="Cookies" records={parsed.cookies} />
+		{/if}
 	</footer>
 </section>
