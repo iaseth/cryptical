@@ -23,10 +23,10 @@ cookies = {{{ cookies }}}
 # cookies = {}
 {{/if}}
 
-{{#if hasData}}
-data = """{{{ data }}}"""
+{{#if json}}
+json_data = {{{ json }}}
 {{else}}
-# data = ""
+data = "{{{ data }}}"
 {{/if}}
 
 
@@ -36,7 +36,7 @@ def main():
 		{{#unless hasParams}}# {{/unless}}params=params,
 		{{#unless hasHeaders}}# {{/unless}}headers=headers,
 		{{#unless hasCookies}}# {{/unless}}cookies=cookies,
-		{{#unless hasData}}# {{/unless}}data=data,
+		{{#unless hasData}}# {{/unless}}{{#if json}}json=json_data{{else}}data=data{{/if}}
 	)
 
 	print(response.status_code)

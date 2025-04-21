@@ -11,6 +11,7 @@ export type CurlParsed = {
 	headers: PropVal[];
 	cookies: PropVal[];
 	data?: string;
+	json: any;
 };
 
 function shellSplit(input: string): string[] {
@@ -50,6 +51,37 @@ function shellSplit(input: string): string[] {
 	}
 
 	return args;
+}
+
+function toPythonLiteral(value: any, indentLevel = 0): string {
+    const indent = '\t'.repeat(indentLevel);
+    const nextIndent = '\t'.repeat(indentLevel + 1);
+
+    if (value === null) return 'None';
+    if (value === true) return 'True';
+    if (value === false) return 'False';
+    if (typeof value === 'string') return `"${value}"`;
+    if (Array.isArray(value)) {
+        if (value.length === 0) return '[]';
+        return `[\n${nextIndent}${value.map(v => toPythonLiteral(v, indentLevel + 1)).join(`,\n${nextIndent}`)}\n${indent}]`;
+    }
+    if (typeof value === 'object') {
+        const entries = Object.entries(value);
+        if (entries.length === 0) return '{}';
+        return `{\n${nextIndent}${entries.map(([k, v]) =>
+            `"${k}": ${toPythonLiteral(v, indentLevel + 1)}`
+        ).join(`,\n${nextIndent}`)}\n${indent}}`;
+    }
+    return value.toString();
+}
+
+function jsonToPythonDictSafe(jsonString: string): string {
+	try {
+		const parsed = JSON.parse(jsonString);
+		return toPythonLiteral(parsed);
+	} catch (error) {
+		return "";
+	}
 }
 
 export function parseCurl(curl: string): CurlParsed {
@@ -116,9 +148,11 @@ export function parseCurl(curl: string): CurlParsed {
 		? args[args.findIndex(a => a === '-X' || a === '--request') + 1].toUpperCase()
 		: data ? 'POST' : 'GET';
 
+	const json = jsonToPythonDictSafe(data || "");
+
 	return {
 		normalized, args,
 		url, baseUrl, method, params,
-		headers, cookies, data
+		headers, cookies, data, json
 	};
 }

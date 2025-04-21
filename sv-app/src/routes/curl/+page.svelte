@@ -31,7 +31,8 @@
 				hasCookies: parsed.cookies.length > 0,
 				cookies: formatDict(parsed.cookies),
 				hasData: !!parsed.data,
-				data: parsed.data?.replace(/"/g, '\\"') ?? ''
+				data: parsed.data?.replace(/"/g, '\\"') ?? '',
+				json: parsed.json
 			});
 
 			generatedCode = renderedCode;
