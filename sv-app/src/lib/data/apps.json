@@ -3,9 +3,14 @@
 		"title": "Utils",
 		"apps": [
 			{
-				"href": "/jwt",
-				"title": "JWT",
-				"description": "Decode JWT tokens and more."
+				"href": "/base64",
+				"title": "Base64",
+				"description": "See how Base64 encoding works."
+			},
+			{
+				"href": "/curl",
+				"title": "cURL",
+				"description": "Convert cURL commands to Code."
 			},
 			{
 				"href": "/curl",
