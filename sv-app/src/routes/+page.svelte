@@ -14,9 +14,9 @@
 </div>
 
 {#each sections as section}
-<section class="container px-4 py-12 space-y-8">
-	<header class="prose text-center mx-auto">
-		<h3>{section.title}</h3>
+<section class="container px-4 py-16">
+	<header class="prose text-center mx-auto mb-10">
+		<h1>{section.title}</h1>
 	</header>
 
 	<section class="grid gap-4 gap-y-6 sm:grid-cols-2 md:grid-cols-3">

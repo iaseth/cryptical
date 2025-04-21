@@ -8,7 +8,7 @@
 	'https://example.com/api?x=1' \\
 	-H "X-Test: test" \\
 	--cookie 'a=1; b=2' \\
-	--data '{"foo":"bar"}`);
+	--data '{"foo":"bar"}'`);
 	let generatedCode = $state('');
 	let parsed: CurlParsed|null = $state(null);
 
