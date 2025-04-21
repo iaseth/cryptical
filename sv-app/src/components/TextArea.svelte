@@ -5,11 +5,12 @@
 	interface Props {
 		value: string,
 		title?: string,
+		rows?: number,
 		key: string,
 		submitText?: string,
-		onSubmit: () => void
+		onSubmit?: () => void
 	}
-	let { value = $bindable(), title, key, submitText="Submit", onSubmit }: Props = $props();
+	let { value = $bindable(), title, rows=10, key, submitText="Submit", onSubmit }: Props = $props();
 	let me: HTMLTextAreaElement|null = $state(null);
 
 	let isEmpty = $derived(value === "");
@@ -42,7 +43,7 @@
 	}
 </script>
 
-<section class="py-16 space-y-4">
+<section class="py-8 space-y-4">
 	<header class="flex gap-x-2 items-center">
 		{#if title}<label class="font-bold" for={textareaId}>{title}</label>{/if}
 		<div class="grow"></div>
@@ -61,7 +62,9 @@
 		id={textareaId} bind:value={value} bind:this={me}
 		rows=10 spellcheck="false"></textarea>
 
-	<footer>
-		<button onclick={onSubmit} class="btn btn-primary">{submitText}</button>
-	</footer>
+	{#if onSubmit}
+		<footer>
+			<button onclick={onSubmit} class="btn btn-primary">{submitText}</button>
+		</footer>
+	{/if}
 </section>

@@ -47,11 +47,10 @@
 		submitText="Convert" onSubmit={onclick} />
 
 	<footer class="py-4 space-y-6">
-		<section class="bg-base-300 p-4">
-			<pre class="text-wrap break-words">{generatedCode}</pre>
-		</section>
-
 		{#if parsed}
+			<TextArea bind:value={generatedCode} rows={20}
+				key="generated-code" title="Generated Code" />
+
 			<PropValueTable header="Basics" records={[
 				{ prop: 'Base URL', value: parsed.baseUrl },
 				{ prop: 'URL', value: parsed.url },
