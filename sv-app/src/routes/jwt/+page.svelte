@@ -1,7 +1,7 @@
 
 <script lang="ts">
 	import { jwtDecode } from "jwt-decode";
-	import TextArea from "../../components/TextArea.svelte";
+	import TextArea from "../../lib/components/TextArea.svelte";
 
 	let jwtToken = $state('');
 	let decodedToken = $state({});

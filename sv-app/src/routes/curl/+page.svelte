@@ -1,8 +1,8 @@
 
 <script lang="ts">
 	import { formatDict, getTemplate, parseCurl, type CurlParsed, type PropVal } from "$lib";
-	import PropValueTable from "../../components/PropValueTable.svelte";
-	import TextArea from "../../components/TextArea.svelte";
+	import PropValueTable from "../../lib/components/PropValueTable.svelte";
+	import TextArea from "../../lib/components/TextArea.svelte";
 
 	let curlCommand = $state(`curl \\
 	'https://example.com/api?x=1' \\

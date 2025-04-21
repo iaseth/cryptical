@@ -1,6 +1,6 @@
 <script lang="ts">
 	import sections from "$lib/data/apps.json";
-	import AppLink from "../components/AppLink.svelte";
+	import AppLink from "../lib/components/AppLink.svelte";
 </script>
 
 {#each sections as section}
