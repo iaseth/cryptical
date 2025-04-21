@@ -1,9 +1,9 @@
 
 <script lang="ts">
 	import { parseCurl, type CurlParsed, type PropVal } from "$lib";
-	import mustache from "mustache";
 	import PropValueTable from "../../components/PropValueTable.svelte";
 	import TextArea from "../../components/TextArea.svelte";
+	import Handlebars from "handlebars";
 
 	let curlCommand = $state(`curl \\
 	'https://example.com/api?x=1' \\
@@ -27,7 +27,8 @@
 	}
 
 	function renderCode (stuff: CurlParsed) {
-		fetch('templates/mustache/python-requests.mustache').then(res => res.text()).then(template => {
+		fetch('templates/handlebars/python-requests.hbs').then(res => res.text()).then(templateContent => {
+			const template = Handlebars.compile(templateContent);
 			const method = stuff.args.includes('-X') || stuff.args.includes('--request')
 				? stuff.args[stuff.args.findIndex(a => a === '-X' || a === '--request') + 1].toUpperCase()
 				: stuff.data ? 'POST' : 'GET';
@@ -36,7 +37,7 @@
 					? `{\n${items.map(({ prop, value }) => `\t"${prop}": "${value}"`).join(',\n')}\n}`
 					: '{}';
 
-			const rendered = mustache.render(template, {
+			const renderedCode = template({
 				url: baseUrl,
 				method: method.toLowerCase(),
 				hasParams: params.length > 0,
@@ -49,8 +50,8 @@
 				data: data?.replace(/"/g, '\\"') ?? ''
 			});
 
-			generatedCode = rendered;
-			return rendered;
+			generatedCode = renderedCode;
+			return renderedCode;
 		});
 	}
 </script>

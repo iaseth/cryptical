@@ -1,0 +1,30 @@
+import requests
+
+url = "{{ url }}"
+
+{{#if hasParams}}
+params = {{{ params }}}
+{{/if}}
+
+{{#if hasHeaders}}
+headers = {{{ headers }}}
+{{/if}}
+
+{{#if hasCookies}}
+cookies = {{{ cookies }}}
+{{/if}}
+
+{{#if hasData}}
+data = """{{{ data }}}"""
+{{/if}}
+
+response = requests.{{method}}(
+		url,
+{{#if hasParams}}		params=params,{{/if}}
+{{#if hasHeaders}}		headers=headers,{{/if}}
+{{#if hasCookies}}		cookies=cookies,{{/if}}
+{{#if hasData}}		data=data,{{/if}}
+)
+
+print(response.status_code)
+print(response.text)
