@@ -1,8 +1,8 @@
 
 <script lang="ts">
 	import { formatDict, getTemplate, parseCurl, type CurlParsed, type PropVal } from "$lib";
-	import PropValueTable from "../../lib/components/PropValueTable.svelte";
-	import TextArea from "../../lib/components/TextArea.svelte";
+	import PropValueTable from "$lib/components/PropValueTable.svelte";
+	import TextArea from "$lib/components/TextArea.svelte";
 
 	let curlCommand = $state(`curl \\
 	'https://example.com/api?x=1' \\
@@ -40,6 +40,10 @@
 		});
 	}
 </script>
+
+<svelte:head>
+	<title>cURL Converter by Cryptical</title>
+</svelte:head>
 
 <section class="container p-4 pb-36">
 	<TextArea bind:value={curlCommand}

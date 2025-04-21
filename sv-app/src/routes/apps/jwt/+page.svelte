@@ -1,7 +1,7 @@
 
 <script lang="ts">
 	import { jwtDecode } from "jwt-decode";
-	import TextArea from "../../lib/components/TextArea.svelte";
+	import TextArea from "$lib/components/TextArea.svelte";
 	import JsonBlock from "$lib/components/JsonBlock.svelte";
 	import CodeBlock from "$lib/components/CodeBlock.svelte";
 
@@ -23,6 +23,10 @@
 		[payload, header] = decodeJwtToken(jwtToken);
 	}
 </script>
+
+<svelte:head>
+	<title>JWT by Cryptical</title>
+</svelte:head>
 
 <section class="container p-4 overflow-x-hidden space-y-4">
 	<TextArea bind:value={jwtToken} key="jwt"

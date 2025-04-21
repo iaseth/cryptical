@@ -3,19 +3,19 @@
 		"title": "Utils",
 		"apps": [
 			{
-				"href": "/base64",
+				"href": "/apps/base64",
 				"title": "Base64",
 				"description": "See how Base64 encoding works."
 			},
 			{
-				"href": "/curl",
+				"href": "/apps/curl",
 				"title": "cURL",
 				"description": "Convert cURL commands to Code."
 			},
 			{
-				"href": "/curl",
-				"title": "cURL",
-				"description": "Convert cURL commands to Code."
+				"href": "/apps/jwt",
+				"title": "JWT",
+				"description": "Decode JWT tokens and more."
 			}
 		]
 	}
