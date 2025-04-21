@@ -4,14 +4,16 @@
 
 	interface Props {
 		value: string,
+		title?: string,
 		key: string,
 		submitText?: string,
 		onSubmit: () => void
 	}
-	let { value = $bindable(), key, submitText="Submit", onSubmit }: Props = $props();
+	let { value = $bindable(), title, key, submitText="Submit", onSubmit }: Props = $props();
 	let me: HTMLTextAreaElement|null = $state(null);
 
 	let isEmpty = $derived(value === "");
+	const textareaId = `textarea-${key}`;
 
 	function copyToClipboard () {
 		if (me) {
@@ -41,11 +43,8 @@
 </script>
 
 <section class="py-16 space-y-4">
-	<textarea class="textarea textarea-primary font-mono block w-full bg-base-200 resize-none"
-		bind:value={value} bind:this={me} rows=10 spellcheck="false"></textarea>
-	
-	<footer class="flex gap-x-2">
-		<button onclick={onSubmit} class="btn btn-primary">{submitText}</button>
+	<header class="flex gap-x-2 items-center">
+		{#if title}<label class="font-bold" for={textareaId}>{title}</label>{/if}
 		<div class="grow"></div>
 
 		{#if isEmpty}
@@ -56,5 +55,13 @@
 			<button class="btn btn-neutral" onclick={copyToClipboard}>Copy</button>
 			<button class="btn btn-neutral" onclick={saveToLS}>Save</button>
 		{/if}
+	</header>
+
+	<textarea class="textarea textarea-primary font-mono block w-full bg-base-200 resize-none"
+		id={textareaId} bind:value={value} bind:this={me}
+		rows=10 spellcheck="false"></textarea>
+
+	<footer>
+		<button onclick={onSubmit} class="btn btn-primary">{submitText}</button>
 	</footer>
 </section>
