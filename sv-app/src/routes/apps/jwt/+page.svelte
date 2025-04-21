@@ -29,7 +29,7 @@
 </svelte:head>
 
 <section class="container p-4 overflow-x-hidden space-y-4">
-	<TextArea bind:value={jwtToken} key="jwt"
+	<TextArea bind:value={jwtToken} key="jwt-decoder-input"
 		submitText="Decode" onSubmit={onclick} />
 
 	<section class="grid md:grid-cols-3 gap-4 items-start">

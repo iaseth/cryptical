@@ -34,7 +34,7 @@
 </svelte:head>
 
 <section class="container p-4 overflow-x-hidden space-y-4">
-	<TextArea bind:value={inputText} key="base64"
+	<TextArea bind:value={inputText} key="base64-encoder-input"
 		submitText="Encode" onSubmit={onclick} rows={5} />
 
 	{#if base64encoded}

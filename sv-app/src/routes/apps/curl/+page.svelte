@@ -47,13 +47,13 @@
 
 <section class="container p-4 pb-36">
 	<TextArea bind:value={curlCommand}
-		title="Curl Converter" key="curl-command"
+		title="Curl Converter" key="curl-command-input"
 		submitText="Convert" onSubmit={onclick} />
 
 	<footer class="py-4 space-y-6">
 		{#if parsed}
 			<TextArea bind:value={generatedCode} rows={20}
-				key="generated-code" title="Generated Code" />
+				key="curl-generated-code-output" title="Generated Code" />
 
 			<PropValueTable header="Basics" records={[
 				{ prop: 'Base URL', value: parsed.baseUrl },
