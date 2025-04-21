@@ -13,7 +13,11 @@
 <section class={["bg-base-300 px-4 py-4 space-y-1 rounded-lg", className]}>
 	{#if title}
 		<header class="prose font-mono">
-			<h4 class="text-primary">{title}</h4>
+			<h4 class="flex">
+				<span class="text-primary">{title}</span>
+				<span class="grow"></span>
+				<span class="text-secondary">{code.length}</span>
+			</h4>
 		</header>
 	{/if}
 	

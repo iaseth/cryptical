@@ -60,7 +60,7 @@
 
 	<textarea class="textarea textarea-primary font-mono block w-full bg-base-200 resize-none"
 		id={textareaId} bind:value={value} bind:this={me}
-		rows=10 spellcheck="false"></textarea>
+		{rows} spellcheck="false"></textarea>
 
 	{#if onSubmit}
 		<footer>

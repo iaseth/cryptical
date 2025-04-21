@@ -35,12 +35,17 @@
 
 <section class="container p-4 overflow-x-hidden space-y-4">
 	<TextArea bind:value={inputText} key="base64"
-		submitText="Encode" onSubmit={onclick} />
+		submitText="Encode" onSubmit={onclick} rows={5} />
 
-	<CodeBlock code={base64encoded} title="Base64" />
+	{#if base64encoded}
+		<section class="grid md:grid-cols-2 gap-4">
+			<CodeBlock code={inputText} title="Input" />
+			<CodeBlock code={base64encoded} title="Base64" />
+		</section>
+	{/if}
 
 	{#if threeByteGroups.length > 0}
-		<section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+		<section class="py-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
 			{#each threeByteGroups as bytes}
 				<ThreeByteGroup {bytes} />
 			{/each}
