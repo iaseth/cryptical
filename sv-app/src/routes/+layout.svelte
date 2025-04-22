@@ -11,6 +11,13 @@
 	<title>Cryptical</title>
 </svelte:head>
 
+<div class="grid grid-cols-4 h-1">
+	<div class="bg-red-500"></div>
+	<div class="bg-blue-500"></div>
+	<div class="bg-orange-500"></div>
+	<div class="bg-green-500"></div>
+</div>
+
 <main class="min-h-screen pb-24">
 	{@render children()}
 </main>

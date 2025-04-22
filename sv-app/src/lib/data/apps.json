@@ -1,6 +1,6 @@
 [
 	{
-		"title": "Utils",
+		"title": "Encoders",
 		"apps": [
 			{
 				"href": "/apps/base64-decoder",
@@ -13,11 +13,6 @@
 				"description": "Understand how Base64 encoding works."
 			},
 			{
-				"href": "/apps/curl",
-				"title": "cURL",
-				"description": "Convert cURL commands to Code."
-			},
-			{
 				"href": "/apps/jwt-decoder",
 				"title": "JWT Decoder",
 				"description": "Decode JWT tokens and more."
@@ -26,6 +21,26 @@
 				"href": "/apps/jwt-encoder",
 				"title": "JWT Encoder",
 				"description": "Encode JWT tokens and more."
+			}
+		]
+	},
+	{
+		"title": "Cryptography",
+		"apps": [
+			{
+				"href": "/apps/hashing",
+				"title": "Hashing",
+				"description": "See various hashes live."
+			}
+		]
+	},
+	{
+		"title": "Web Scraping",
+		"apps": [
+			{
+				"href": "/apps/curl",
+				"title": "cURL",
+				"description": "Convert cURL commands to Code."
 			}
 		]
 	}
