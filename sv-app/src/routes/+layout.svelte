@@ -18,7 +18,7 @@
 	<div class="bg-blue-500"></div>
 </div>
 
-<main class="min-h-screen pb-24">
+<main class="min-h-screen pb-24 overflow-x-hidden">
 	{@render children()}
 </main>
 

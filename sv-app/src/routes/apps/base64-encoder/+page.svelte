@@ -6,8 +6,8 @@
 	import ThreeByteGroup from "./ThreeByteGroup.svelte";
 
 	let inputText = $state('Hello, World!');
-	let threeByteGroups: number[][] = $state([]);
-	let base64encoded: string = $state("");
+	let threeByteGroups: number[][] = $derived.by(() => splitInto3ByteChunks(inputText));
+	let base64encoded: string = $derived(threeByteGroups.map(threeBytesToBase64).flat().join(""));
 
 	function splitInto3ByteChunks(str: string): number[][] {
 		const encoder = new TextEncoder();
@@ -21,12 +21,6 @@
 
 		return chunks;
 	}
-
-	function onclick () {
-		const groups = splitInto3ByteChunks(inputText);
-		threeByteGroups = groups;
-		base64encoded = groups.map(threeBytesToBase64).flat().join("");
-	}
 </script>
 
 <svelte:head>
@@ -35,7 +29,6 @@
 
 <section class="container p-4 space-y-4">
 	<TextArea bind:value={inputText} key="base64-encoder-input"
-		submitText="Encode" onSubmit={onclick}
 		rows={5} title="Enter Text" />
 
 	{#if base64encoded}
@@ -46,7 +39,7 @@
 	{/if}
 
 	{#if threeByteGroups.length > 0}
-		<section class="py-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+		<section class="py-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-1 gap-y-6">
 			{#each threeByteGroups as bytes}
 				<ThreeByteGroup {bytes} />
 			{/each}
