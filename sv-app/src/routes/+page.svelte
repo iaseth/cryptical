@@ -8,7 +8,7 @@
 		<div class="max-w-md">
 			<h1 class="text-5xl font-bold">Cryptical</h1>
 			<p class="py-6">This is just a small collection of Single Page Apps (SPAs) related to Cryptography and Web Scraping.</p>
-			<a class="btn btn-primary" href="https://github.com/iaseth/cryptical">GitHub</a>
+			<a class="btn btn-primary" href="https://github.com/iaseth/cryptical" target="_blank">GitHub</a>
 		</div>
 	</div>
 </div>
