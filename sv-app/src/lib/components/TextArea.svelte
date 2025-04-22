@@ -55,12 +55,25 @@
 		<div class="grow"></div>
 
 		{#if isEmpty}
-			<button class="btn btn-sm btn-neutral" onclick={loadFromLS}>Load</button>
-			<button class="btn btn-sm btn-neutral" onclick={pasteFromClipboard}>Paste</button>
+			<div class="tooltip" data-tip="Load from LocalStorage">
+				<button class="btn btn-sm btn-neutral" onclick={loadFromLS}>Load</button>
+			</div>
+
+			<div class="tooltip" data-tip="Paste from Clipboard">
+				<button class="btn btn-sm btn-neutral" onclick={pasteFromClipboard}>Paste</button>
+			</div>
 		{:else}
-			<button class="btn btn-sm btn-neutral" onclick={() => value = ""}>Clear</button>
-			<button class="btn btn-sm btn-neutral" onclick={copyToClipboard}>Copy</button>
-			<button class="btn btn-sm btn-neutral" onclick={saveToLS}>Save</button>
+			<div class="tooltip" data-tip="Clear the Input">
+				<button class="btn btn-sm btn-neutral" onclick={() => value = ""}>Clear</button>
+			</div>
+
+			<div class="tooltip" data-tip="Copy to Clipboard">
+				<button class="btn btn-sm btn-neutral" onclick={copyToClipboard}>Copy</button>
+			</div>
+
+			<div class="tooltip" data-tip="Save to LocalStorage">
+				<button class="btn btn-sm btn-neutral" onclick={saveToLS}>Save</button>
+			</div>
 		{/if}
 	</header>
 

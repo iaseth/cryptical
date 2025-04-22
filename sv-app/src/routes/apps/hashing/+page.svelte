@@ -23,7 +23,7 @@
 	<title>Hashing by Cryptical</title>
 </svelte:head>
 
-<section class="container p-4 overflow-x-hidden space-y-4">
+<section class="container p-4 space-y-4">
 	<TextArea bind:value={inputText} key="hashing-input"
 		submitText="Hash" onSubmit={onclick}
 		rows={5} title="Enter Text" />

@@ -15,7 +15,7 @@
 	<title>Base64 Decoder by Cryptical</title>
 </svelte:head>
 
-<section class="container p-4 overflow-x-hidden space-y-4">
+<section class="container p-4 space-y-4">
 	<TextArea bind:value={inputText} key="base64-decoder-input"
 		submitText="Decode" onSubmit={onclick}
 		rows={5} title="Enter Base64" />
