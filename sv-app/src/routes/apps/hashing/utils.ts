@@ -16,7 +16,8 @@ export type HashDS = {
 
 export const GROUPS = [
 	'SHA-1/2',
-	// 'SHA-3',
+	'SHA-3',
+	'Keccak',
 	'BLAKE',
 	'Legacy',
 	'Non-Crypto'
@@ -25,9 +26,22 @@ export const GROUPS = [
 export const hashAlgorithms: HashDefinition[] = [
 	// SHA-1/2
 	{ group: 'SHA-1/2', algo: 'SHA-1', fn: hashwasm.sha1 },
+	{ group: 'SHA-1/2', algo: 'SHA-224', fn: hashwasm.sha224 },
 	{ group: 'SHA-1/2', algo: 'SHA-256', fn: hashwasm.sha256 },
 	{ group: 'SHA-1/2', algo: 'SHA-384', fn: hashwasm.sha384 },
 	{ group: 'SHA-1/2', algo: 'SHA-512', fn: hashwasm.sha512 },
+
+	// SHA-3
+	{ group: 'SHA-3', algo: 'SHA-3-224', fn: (text: string) => hashwasm.sha3(text, 224) },
+	{ group: 'SHA-3', algo: 'SHA-3-256', fn: (text: string) => hashwasm.sha3(text, 256) },
+	{ group: 'SHA-3', algo: 'SHA-3-384', fn: (text: string) => hashwasm.sha3(text, 384) },
+	{ group: 'SHA-3', algo: 'SHA-3-512', fn: (text: string) => hashwasm.sha3(text, 512) },
+
+	// Keccak
+	{ group: 'Keccak', algo: 'Keccak-224', fn: (text: string) => hashwasm.keccak(text, 224) },
+	{ group: 'Keccak', algo: 'Keccak-256', fn: (text: string) => hashwasm.keccak(text, 256) },
+	{ group: 'Keccak', algo: 'Keccak-384', fn: (text: string) => hashwasm.keccak(text, 384) },
+	{ group: 'Keccak', algo: 'Keccak-512', fn: (text: string) => hashwasm.keccak(text, 512) },
 
 	// BLAKE
 	{ group: 'BLAKE', algo: 'BLAKE2b', fn: (text) => hashwasm.blake2b(text, 64) },

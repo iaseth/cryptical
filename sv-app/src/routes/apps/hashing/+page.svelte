@@ -2,14 +2,21 @@
 <script lang="ts">
 	import CodeBlock from "$lib/components/CodeBlock.svelte";
 	import TextArea from "$lib/components/TextArea.svelte";
+	import { onMount } from "svelte";
 	import { getHashes, GROUPS, type HashDS } from "./utils";
 
 	let inputText = $state('Hello, World!');
 	let hashes: HashDS[] = $state([]);
 
-	async function onclick () {
+	async function updateHashes () {
 		hashes = await getHashes(inputText);
 	}
+
+	function onclick () {
+		updateHashes();
+	}
+
+	onMount(updateHashes);
 </script>
 
 <svelte:head>
