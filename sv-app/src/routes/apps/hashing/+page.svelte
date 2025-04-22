@@ -2,26 +2,24 @@
 <script lang="ts">
 	import CodeBlock from "$lib/components/CodeBlock.svelte";
 	import TextArea from "$lib/components/TextArea.svelte";
+	import * as hashwasm from "hash-wasm";
 
-	let inputText = $state('Hello, World!');
-
-	let sha1Hash = $state('');
-	let sha256Hash = $state('');
-	let sha384Hash = $state('');
-	let sha512Hash = $state('');
-
-	async function hashText(text: string, algo: string): Promise<string> {
-		const encoder = new TextEncoder();
-		const data = encoder.encode(text);
-		const hashBuffer = await crypto.subtle.digest(algo, data);
-		return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+	interface HashDS {
+		algo: string,
+		hash: string
 	}
 
+	let inputText = $state('Hello, World!');
+	let hashes: HashDS[] = $state([]);
+
 	async function onclick () {
-		sha1Hash = await hashText(inputText, 'SHA-1');
-		sha256Hash = await hashText(inputText, 'SHA-256');
-		sha384Hash = await hashText(inputText, 'SHA-384');
-		sha512Hash = await hashText(inputText, 'SHA-512');
+		const text = inputText;
+		hashes = [
+			{ algo: "SHA-1", hash: await hashwasm.sha1(text) },
+			{ algo: "SHA-256", hash: await hashwasm.sha256(text) },
+			{ algo: "SHA-384", hash: await hashwasm.sha384(text) },
+			{ algo: "SHA-512", hash: await hashwasm.sha512(text) },
+		];
 	}
 </script>
 
@@ -34,10 +32,11 @@
 		submitText="Hash" onSubmit={onclick}
 		rows={5} title="Enter Text" />
 
-	<section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-		<CodeBlock code={sha1Hash} title="SHA 1" />
-		<CodeBlock code={sha256Hash} title="SHA 256" />
-		<CodeBlock code={sha384Hash} title="SHA 384" />
-		<CodeBlock code={sha512Hash} title="SHA 512" />
-	</section>
+	{#if hashes.length > 0}
+		<section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+			{#each hashes as hash}
+				<CodeBlock code={hash.hash} title={hash.algo} />
+			{/each}
+		</section>
+	{/if}
 </section>
