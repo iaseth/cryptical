@@ -1,6 +1,6 @@
 <script lang="ts">
 	import sections from "$lib/data/apps.json";
-	import AppLink from "../lib/components/AppLink.svelte";
+	import AppLinkCard from "../lib/components/AppLinkCard.svelte";
 </script>
 
 <div class="hero bg-base-200 py-20">
@@ -22,7 +22,7 @@
 
 			<section class="grid gap-4 gap-y-6 md:grid-cols-2">
 				{#each section.apps as app}
-					<AppLink {...app} />
+					<AppLinkCard {...app} />
 				{/each}
 			</section>
 		</section>
