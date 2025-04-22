@@ -8,9 +8,15 @@
 		rows?: number,
 		key: string,
 		submitText?: string,
-		onSubmit?: () => void
+		onSubmit?: () => void,
+		hideTopPanel?: boolean,
+		hideBottomPanel?: boolean,
 	}
-	let { value = $bindable(), title, rows=10, key, submitText="Submit", onSubmit }: Props = $props();
+	let {
+		value = $bindable(), title, rows=10, key,
+		submitText="Submit", onSubmit,
+		hideTopPanel=false, hideBottomPanel=false
+	}: Props = $props();
 	let me: HTMLTextAreaElement|HTMLInputElement|null = $state(null);
 
 	let isEmpty = $derived(value === "");
@@ -44,7 +50,7 @@
 </script>
 
 <section class="py-4 space-y-4">
-	<header class="flex gap-x-2 items-end">
+	<header class="flex gap-x-2 items-end" hidden={hideTopPanel}>
 		{#if title}<label class="font-bold text-sm px-3" for={textareaId}>{title}</label>{/if}
 		<div class="grow"></div>
 
@@ -69,7 +75,7 @@
 	{/if}
 
 	{#if onSubmit}
-		<footer>
+		<footer hidden={hideBottomPanel}>
 			<button onclick={onSubmit} class="btn btn-primary">{submitText}</button>
 		</footer>
 	{/if}
