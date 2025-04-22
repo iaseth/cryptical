@@ -4,21 +4,29 @@
 		"apps": [
 			{
 				"href": "/apps/base64-decoder",
+				"bigChar": "b64",
+				"subtitle": "Decoder",
 				"title": "Base64 Decoder",
 				"description": "Understand how Base64 decoding works."
 			},
 			{
 				"href": "/apps/base64-encoder",
+				"bigChar": "b64",
+				"subtitle": "Encoder",
 				"title": "Base64 Encoder",
 				"description": "Understand how Base64 encoding works."
 			},
 			{
 				"href": "/apps/jwt-decoder",
+				"bigChar": "jwt",
+				"subtitle": "Decoder",
 				"title": "JWT Decoder",
 				"description": "Decode JWT tokens and more."
 			},
 			{
 				"href": "/apps/jwt-encoder",
+				"bigChar": "jwt",
+				"subtitle": "Encoder",
 				"title": "JWT Encoder",
 				"description": "Encode JWT tokens and more."
 			}
@@ -29,6 +37,8 @@
 		"apps": [
 			{
 				"href": "/apps/hashing",
+				"bigChar": "H",
+				"subtitle": "Hashing",
 				"title": "Hashing",
 				"description": "See various hashes live."
 			}
@@ -39,6 +49,8 @@
 		"apps": [
 			{
 				"href": "/apps/curl",
+				"bigChar": "C",
+				"subtitle": "cURL",
 				"title": "cURL",
 				"description": "Convert cURL commands to Code."
 			}
